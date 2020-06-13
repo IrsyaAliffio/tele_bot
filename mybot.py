@@ -20,15 +20,19 @@ class Mybot:
     def start(message):
         photo = open('img/rpl2.jpg', 'rb')
         myBot.send_photo(message.from_user.id, photo)
+        responseText = "Hallo @" + message.from_user.username + "\n"
         teks = mytoken.SAPA + "\n-- admin & developer @IrsyaALiffio - SMK Taruna Bhakti -- "+"\n" \
+                                + responseText + \
                                 "Mungkin kamu harus ketik /help terlebih dahulu untuk mengetahui fitur lainnya"+"\n" \
-                        "hari ini tanggal "+str(waktusekarang)
+                                "hari ini tanggal "+str(waktusekarang)
         myBot.reply_to(message, teks)
 
     @myBot.message_handler(commands=['help'])
     def help(message):
+        responseText = "Hallo @" + message.from_user.username+"\n"
         teks = mytoken.SAPA + "\n-- HALLO SAYA WO BOT ASISTEN KAMU SEKARANG -- "+"\n" \
-                              "Aku bisa membantu kamu dengan perintah:"+"\n" \
+                               + responseText + \
+                               "Aku bisa membantu kamu dengan perintah:"+"\n" \
                               "/start : Untuk memulai"+"\n" \
                               "/help : Untuk melihat apa yang bisa bot ini lakukan"+"\n" \
                               "/datasiswa : Untuk melihat data siswa XI RPL 1 dan XI RPL 2"+"\n"
@@ -36,7 +40,7 @@ class Mybot:
 
     @myBot.message_handler(commands=['datasiswa'])
     def menu_data_siswa(message):
-        query="\n select nipd,nama,kelas from tabel_siswa"
+        query="select nipd,nama,kelas from tabel_siswa"
         sql.execute(query)
         data=sql.fetchall()
         jmldata = sql.rowcount
@@ -46,8 +50,8 @@ class Mybot:
             no=0
             for x in data:
                 no += 1
-                kumpuldata =kumpuldata+ str(x)
-                print(kumpuldata)
+                kumpuldata =kumpuldata+ str(x)+"\n"
+                print(kumpuldata+"\n")
                 kumpuldata = kumpuldata.replace('(', '')
                 kumpuldata = kumpuldata.replace(')', '')
                 kumpuldata = kumpuldata.replace("'", '')
